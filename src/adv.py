@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -38,7 +39,11 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+new_player = input("Enter player name:")
 
+player = Player(new_player, room["outside"])
+
+print(f"Welcome {player.name}.\n Use the WASD keys to move N, W, S, E.\n Press Q to quit")
 # Write a loop that:
 #
 # * Prints the current room name
