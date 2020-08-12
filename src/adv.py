@@ -59,7 +59,34 @@ while True:
 
     print(f'Your current location is the {current_room.name}. {current_room.description}')
 
-    make_move = input(f"Move North [W], West [A], South [S], or East [D]? Press [Q] to quit.")
+    make_move = input("Move North [W], West [A], South [S], or East [D]? Press [Q] to quit:")
 
     if make_move == 'q':
-        print(f'Come play again soon!')
+        print('Come play again soon!')
+
+    if make_move == 'w':
+        if hasattr(current_room, 'n_to'):
+            player.current_room = current_room.n_to
+            print('You went North...')
+        else:
+            print("Can't go that way. Choose a different direction...")
+    if make_move == "a":
+        if hasattr(current_room, 'w_to'):
+            player.current_room = current_room.w_to
+            print("You went West...")
+        else:
+            print("Can't go that way. Choose a different direction...")
+    if make_move == 's':
+        if hasattr(current_room, "s_to"):
+            player.current_room = current_room.s_to
+            print("You went South...")
+        else:
+            print("Can't go that way. Choose a different direction...")
+    if make_move == "d":
+        if hasattr(current_room, 'e_to'):
+            player.current_room = current_room.e_to
+            print("You went East...")
+        else:
+            print("Can't go that way. Choose a different direction...")
+    else:
+        print("Please choose a direction to proceed...")
