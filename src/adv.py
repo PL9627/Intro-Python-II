@@ -43,7 +43,7 @@ new_player = input("Enter player name:")
 
 player = Player(new_player, room["outside"])
 
-print(f"Welcome {player.name}.\n Use the WASD keys to move N, W, S, E.\n Press Q to quit")
+print(f"Welcome {player.name}.")
 # Write a loop that:
 #
 # * Prints the current room name
@@ -54,3 +54,12 @@ print(f"Welcome {player.name}.\n Use the WASD keys to move N, W, S, E.\n Press Q
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+while True:
+    current_room = player.current_room
+
+    print(f'Your current location is the {current_room.name}. {current_room.description}')
+
+    make_move = input(f"Move North [W], West [A], South [S], or East [D]? Press [Q] to quit.")
+
+    if make_move == 'q':
+        print(f'Come play again soon!')
