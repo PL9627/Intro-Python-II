@@ -39,7 +39,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-new_player = input("Enter player name:")
+new_player = input("Enter player name: ")
 
 player = Player(new_player, room["outside"])
 
@@ -59,34 +59,39 @@ while True:
 
     print(f'Your current location is the {current_room.name}. {current_room.description}')
 
-    make_move = input("Move North [W], West [A], South [S], or East [D]? Press [Q] to quit:")
+    make_move = input("Move North [W], West [A], South [S], or East [D]? Press [Q] to quit: ")
 
-    if make_move == 'q':
-        print('Come play again soon!')
+    try:
+        if make_move == 'q':
+            print('Come play again soon!')
+            break
 
-    if make_move == 'w':
-        if hasattr(current_room, 'n_to'):
-            player.current_room = current_room.n_to
-            print('You went North...')
+        elif make_move == 'w':
+            if hasattr(current_room, 'n_to'):
+                player.current_room = current_room.n_to
+                print('You went North...')
+            else:
+                pass
+        elif make_move == "a":
+            if hasattr(current_room, 'w_to'):
+                player.current_room = current_room.w_to
+                print("You went West...")
+            else:
+                pass
+        elif make_move == 's':
+            if hasattr(current_room, "s_to"):
+                player.current_room = current_room.s_to
+                print("You went South...")
+            else:
+                pass
+        elif make_move == "d":
+            if hasattr(current_room, 'e_to'):
+                player.current_room = current_room.e_to
+                print("You went East...")
+            else:
+                pass
         else:
-            print("Can't go that way. Choose a different direction...")
-    if make_move == "a":
-        if hasattr(current_room, 'w_to'):
-            player.current_room = current_room.w_to
-            print("You went West...")
-        else:
-            print("Can't go that way. Choose a different direction...")
-    if make_move == 's':
-        if hasattr(current_room, "s_to"):
-            player.current_room = current_room.s_to
-            print("You went South...")
-        else:
-            print("Can't go that way. Choose a different direction...")
-    if make_move == "d":
-        if hasattr(current_room, 'e_to'):
-            player.current_room = current_room.e_to
-            print("You went East...")
-        else:
-            print("Can't go that way. Choose a different direction...")
-    else:
-        print("Please choose a direction to proceed...")
+            print("Proceeding to new location...")
+    except AttributeError:
+         print("Can't go that way. Choose a different direction...")
+         continue
