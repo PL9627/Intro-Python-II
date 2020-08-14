@@ -16,3 +16,9 @@ class Player:
 
     def drop(self, items):
         del self.inventory[items]
+
+    def view_inventory(self):
+        for items in self.inventory:
+            print(items)
+        
+        print('inventory:\n')
