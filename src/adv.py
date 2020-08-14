@@ -5,21 +5,21 @@ from items import Items
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", Items('Flashlight', 'An old flashlight.\n It still works...')),
+                     "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", Items('Dirty Key', 'A dirty key. It could open something...')),
+passages run north and east."""),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", Items("Old Note", "Hurry hurry and find what is mine,\n You don't have much time...")),
+the distance, but there is no way across the chasm."""),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", Items('Rusty Knife', "A rusted knife can't be used for much...")),
+to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", Items('Treasure Chest', "An nearly empty chest with a note inside that says:\n I got here first lol")),
+earlier adventurers. The only exit is to the south."""),
 }
 
 
@@ -33,6 +33,9 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+
+room['outside'].items.append(Items('Old Flashlight', 'Still works...'))
+room['treasure'].items.append(Items('Messy Note', 'Got here first lol'))
 
 #
 # Main
@@ -57,16 +60,44 @@ print(f"Welcome {player.name}.")
 while True:
     current_room = player.current_room
 
-    print(f'Your current location is the {current_room.name}. {current_room.description}')
+    print(f'Your current location is the {current_room.name}.\n{current_room.description}')
+    print(f'It contains the item: {player.current_room.items}')
 
-    make_move = input("Move North [W], West [A], South [S], or East [D]?\n Press [Q] to quit and [I] to open inventory: ")
+    make_move = input("Move North [N], West [W], South [S], or East [E]?\nPress get or drop for items,\nand[Q] to quit: ")
 
     try:
         if make_move == 'q':
             print('Come play again soon!')
             break
 
-        elif make_move == 'i':
+        split_input = make_move.split()
+        print(split_input)
+        
+        if len(split_input) == 1:
+            direction_attr = f'{make_move}_to'
+            if hasattr(current_room, direction_attr):
+                print("moving to: ", getattr(current_room, direction_attr))
+                player.current_room = getattr(current_room, direction_attr)
+            else:
+                print("Choose a valid direction")
+                continue
+        elif len(split_input) == 2:
+            item_name = split_input[1]
+            if split_input[0] == "get":
+                item = current_room.get_item(item_name)
+                if item:
+                    item.on_take()
+                    current_room.remove_item(item)
+                    player.items.append(item)
+                else:
+                    print(f'{item_name} does not exist')
+            elif split_input[0].lower() == 'drop':
+                pass
+            else:
+                print('command not recognized')
+                continue
+
+        """ elif make_move == 'i':
             player.view_inventory()
 
         elif make_move == 'w':
@@ -102,7 +133,7 @@ while True:
             else:
                 pass
         else:
-            print("Proceeding to new location...")
+            print("Proceeding to new location...") """
     
     except AttributeError:
          print("Can't go that way. Choose a different direction...")
