@@ -17,3 +17,6 @@ class Room:
 
     def get_items(self, items):
         self.items.append(items)
+
+    def remove_items(self, items):
+        del self.items[items]
