@@ -7,7 +7,12 @@ class Player:
         self.name = name
         self.current_room = current_room
         self.inventory = []
+    
     def __str__(self):
         return f'{self.name} {self.current_room}'
+    
     def take(self, item):
         self.inventory.append(item)
+
+    def drop(self, item):
+        del self.inventory[item]

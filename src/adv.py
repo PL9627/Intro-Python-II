@@ -67,31 +67,40 @@ while True:
             break
 
         elif make_move == 'w':
+            
             if hasattr(current_room, 'n_to'):
                 player.current_room = current_room.n_to
                 print('You went North...')
+            
             else:
                 pass
         elif make_move == "a":
+            
             if hasattr(current_room, 'w_to'):
                 player.current_room = current_room.w_to
                 print("You went West...")
+            
             else:
                 pass
         elif make_move == 's':
+            
             if hasattr(current_room, "s_to"):
                 player.current_room = current_room.s_to
                 print("You went South...")
+            
             else:
                 pass
         elif make_move == "d":
+            
             if hasattr(current_room, 'e_to'):
                 player.current_room = current_room.e_to
                 print("You went East...")
+            
             else:
                 pass
         else:
             print("Proceeding to new location...")
+    
     except AttributeError:
          print("Can't go that way. Choose a different direction...")
          continue
