@@ -1,25 +1,25 @@
 from room import Room
 from player import Player
-
+from items import Items
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", Items('Flashlight', 'An old flashlight.\n It still works...')),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", Items('Dirty Key', 'A dirty key. It could open something...')),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", Items("Old Note", "Hurry hurry and find what is mine,\n You don't have much time...")),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", Items('Rusty Knife', "A rusted knife can't be used for much...")),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", Items('Treasure Chest', "An nearly empty chest with a note inside that says:\n I got here first lol")),
 }
 
 
@@ -59,12 +59,15 @@ while True:
 
     print(f'Your current location is the {current_room.name}. {current_room.description}')
 
-    make_move = input("Move North [W], West [A], South [S], or East [D]? Press [Q] to quit: ")
+    make_move = input("Move North [W], West [A], South [S], or East [D]?\n Press [Q] to quit and [I] to open inventory: ")
 
     try:
         if make_move == 'q':
             print('Come play again soon!')
             break
+
+        elif make_move == 'i':
+            player.view_inventory()
 
         elif make_move == 'w':
             
