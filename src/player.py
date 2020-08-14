@@ -9,3 +9,5 @@ class Player:
         self.inventory = []
     def __str__(self):
         return f'{self.name} {self.current_room}'
+    def take(self, item):
+        self.inventory.append(item)
